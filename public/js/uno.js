@@ -1,4 +1,4 @@
-    const ws= new WebSocket("ws://unogame-5a61b.web.app/");
+    const ws= new WebSocket("ws://dipanshujain895-unoback.herokuapp.com/uno");
     var cards;
     var tablecard;
     var user
