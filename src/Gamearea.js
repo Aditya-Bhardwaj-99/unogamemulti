@@ -165,16 +165,6 @@ export default class Gamearea extends Component {
         }
         this.nextturn(res.turn, res.addcards);
       } else if (res.action === "win") {
-        let x = 1;
-        for (let d of res.op) {
-          if (d.name !== this.state.user) {
-            this.state["op" + x] = d;
-            x++;
-          } else {
-            this.state["player"] = d;
-          }
-        }
-        this.setState({ tablecard: res.tablecard });
         this.win(res.user);
       } else if (res.action === "retry") {
         ws.send(JSON.stringify({ action: "start", user: this.state.user }));
