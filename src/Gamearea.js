@@ -512,7 +512,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "wplayed",
-                  tablecard: { num: "W", color: "red" },
+                  tablecard: { num: "0", color: "red" },
                   played: this.state.user,
                 })
               );
@@ -530,7 +530,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "wplayed",
-                  tablecard: { num: "W", color: "yellow" },
+                  tablecard: { num: "0", color: "yellow" },
                   played: this.state.user,
                 })
               );
@@ -548,7 +548,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "wplayed",
-                  tablecard: { num: "W", color: "green" },
+                  tablecard: { num: "0", color: "green" },
                   played: this.state.user,
                 })
               );
@@ -566,7 +566,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "wplayed",
-                  tablecard: { num: "W", color: "blue" },
+                  tablecard: { num: "0", color: "blue" },
                   played: this.state.user,
                 })
               );
@@ -597,7 +597,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "4played",
-                  tablecard: { num: "+4", color: "red" },
+                  tablecard: { num: "0", color: "red" },
                   played: this.state.user,
                 })
               );
@@ -615,7 +615,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "4played",
-                  tablecard: { num: "+4", color: "yellow" },
+                  tablecard: { num: "0", color: "yellow" },
                   played: this.state.user,
                 })
               );
@@ -633,7 +633,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "4played",
-                  tablecard: { num: "+4", color: "green" },
+                  tablecard: { num: "0", color: "green" },
                   played: this.state.user,
                 })
               );
@@ -651,7 +651,7 @@ export default class Gamearea extends Component {
               ws.send(
                 JSON.stringify({
                   action: "4played",
-                  tablecard: { num: "+4", color: "blue" },
+                  tablecard: { num: "0", color: "blue" },
                   played: this.state.user,
                 })
               );
