@@ -1,0 +1,29 @@
+.gamearea{
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    height: auto;
+    width: auto;
+}
+#mid{
+    display: grid;
+    grid-template-columns: auto auto auto ;
+}
+.playercard{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.player{
+    position: relative;
+    width: 50%;
+    height: auto;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.stack{
+    width: 50%;
+    height: auto;
+    margin-left: 25%;
+    margin-right: 25%;
+}

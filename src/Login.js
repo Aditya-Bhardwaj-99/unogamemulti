@@ -9,31 +9,53 @@ export default class Login extends Component {
     constructor() {
         super();
         this.state = {
-            auth: false
+            auth: false,
+            user:'',
+            gamex:0
         }
     }
 
     handleSubmit = () => {
         var form = document.getElementsByClassName('logForm')[0];
-        //make fetch request update server
-        if(form.elements.username.value === 'aditya' && form.elements.password.value === 'abc'){
-            document.getElementsByClassName('login')[0].style.display='none';
-            document.getElementsByClassName('signup')[0].style.display='none';
-            document.getElementsByClassName('game')[0].style.display='inline';
-        }
+        fetch(`http://localhost:3001/login`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user:form.elements.username.value,
+                pass:form.elements.password.value
+            })
+          }).then(res=>res.json()).then(res=>{
+              this.setState({user:form.elements.username.value,gamex:1});
+              if(res.auth===true){
+                document.getElementsByClassName('login')[0].style.display='none';
+                document.getElementsByClassName('signup')[0].style.display='none';
+              }
+          });
+        //   if(form.elements.username.value){
+        //     document.getElementsByClassName('login')[0].style.display='none';
+        //     document.getElementsByClassName('signup')[0].style.display='none';
+        //     document.getElementsByClassName('game')[0].style.display='inline';
+        //   }
     }
 
     handleSign=()=>{
         document.getElementsByClassName('login')[0].style.display='none';
         document.getElementsByClassName('signup')[0].style.display='inline';
-        document.getElementsByClassName('game')[0].style.display='none';
     }
 
     handleSubmitdone=()=>{
         document.getElementsByClassName('login')[0].style.display='inline';
         document.getElementsByClassName('signup')[0].style.display='none';
-        document.getElementsByClassName('game')[0].style.display='none';
     }
+    handleLogout=()=>{
+        this.setState({gamex:0})
+        document.getElementsByClassName('login')[0].style.display='inline';
+        document.getElementsByClassName('signup')[0].style.display='none';
+    }
+
 
     render() {
         return (
@@ -72,7 +94,7 @@ export default class Login extends Component {
                     </div>
                 </div>
                 <div className='signup' ><Signup handle={this.handleSubmitdone}/></div>
-                <div className='game'><Game logout={this.handleSubmitdone}/></div>
+                {this.state.gamex?<Game logout={this.handleLogout} user={this.state.user}/>:null}
             </div >
         )
     }

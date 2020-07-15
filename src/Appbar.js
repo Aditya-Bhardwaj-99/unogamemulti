@@ -30,8 +30,18 @@ export default function Appbar(props) {
 
   const handleLogout = ()=>{
     auth = false;
-    props.logout();
-    handleClose();
+    fetch(`http://localhost:3001/logout`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user:props.user
+            })
+          })
+          props.logout();
+          handleClose();
   }
 
   const handleMenu = (event) => {

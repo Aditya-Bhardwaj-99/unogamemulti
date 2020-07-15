@@ -1,0 +1,28 @@
+.loading{
+    position: absolute;
+    margin-left: 33%;
+    margin-top:7%;
+    width: 450px;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+}
+.text{
+    margin-top: 25%;
+    color: rgb(233, 22, 22);
+    transform: rotate(45deg);
+    font-size: medium;
+}
+.gameSpace{
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    margin-left: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 98%;
+    height: auto;
+    overflow-y: auto;
+}

@@ -11,9 +11,19 @@ export default class Signup extends Component {
     handleSubmit=async ()=>{
         var form = document.getElementsByClassName('signForm')[0];
         if(form.elements.password.value===form.elements.cpassword.value){
-            
-            //make server request
-            this.props.handle();
+            fetch(`http://localhost:3001/signup`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name:form.elements.name.value,
+                user:form.elements.username.value,
+                pass:form.elements.password.value,
+                mail:form.elements.email.value
+            })
+          }).then(res=>{this.props.handle();});
         }
     }
 
@@ -32,7 +42,7 @@ export default class Signup extends Component {
                                 id="standard-name"
                                 label="Name"
                                 className="name"
-                                name='Name'
+                                name='name'
                                 margin="normal"
                             />
                             <br></br>
