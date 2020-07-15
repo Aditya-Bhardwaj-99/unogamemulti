@@ -422,7 +422,8 @@ export default class Gamearea extends Component {
   };
 
   drawTwoCards = (addcards) => {
-    let e = { target: document.getElementsByClassName("tablecard")[0] };
+    for (let data of addcards) {
+      let e = { target: document.getElementsByClassName("tablecard")[0] };
     let dest = document.getElementsByClassName("player")[0].lastChild;
     let temp = document.createElement("img");
     temp.src = require("./cards/back-.png");
@@ -432,7 +433,6 @@ export default class Gamearea extends Component {
     temp.style.position = "absolute";
     temp.className = "tempplayer";
     temp.style.opacity = 0;
-    for (let data of addcards) {
       ws.send(
         JSON.stringify({
           action: "drawanim",
