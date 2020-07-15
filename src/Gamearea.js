@@ -471,10 +471,10 @@ export default class Gamearea extends Component {
         },onComplete: () => {
           this.state.playercards.push(data);
           temp.parentNode.removeChild(temp);
+          this.setState({ playercards: this.state.playercards });
         }})
         .play();
     }
-    this.setState({ playercards: this.state.playercards });
   };
   drawCard = (addcards) => {
     this.state.playercards.push(...addcards);
