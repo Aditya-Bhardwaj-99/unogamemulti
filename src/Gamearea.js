@@ -221,14 +221,14 @@ export default class Gamearea extends Component {
             .to(temp, 0.25, {css:{ opacity: 1, ease: "Power2.easeIn" }})
             .to(temp, 0.25, {css:{
               rotateY: 90,
-              onComplete: () => {
+              },onComplete: () => {
                 console.log(res.addcard[0].color + "-" + res.addcard[0].num);
                 temp.src = require("./cards/" +
                   res.addcard[0].color +
                   "-" +
                   res.addcard[0].num +
                   ".png");
-              }},
+              }
             })
             .to(temp, 0.25, {css:{ rotateY: 0 }})
             .to(temp, 0.5, {css:{
@@ -238,13 +238,13 @@ export default class Gamearea extends Component {
                 50,
               y:
                 dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-              onComplete: () => {
+              },onComplete: () => {
                 document.getElementsByClassName(
                   "player"
                 )[0].style.pointerEvents = "auto";
                 this.drawCard(res.addcard);
                 temp.parentNode.removeChild(temp);
-              }},
+              }
             })
             .play();
         }
@@ -292,9 +292,9 @@ export default class Gamearea extends Component {
               y:
                 dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
                 rotateZ:rotation,
-              onComplete: () => {
+              },onComplete: () => {
                 temp.parentNode.removeChild(temp);
-              }},
+              }
             })
             .play();
         }
@@ -344,9 +344,9 @@ export default class Gamearea extends Component {
               temp.getBoundingClientRect().x,
             y: dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
             rotateZ:0,
-            onComplete: () => {
+            },onComplete: () => {
               temp.parentNode.removeChild(temp);
-            }},
+            }
           })
           .play();
       }
@@ -379,15 +379,14 @@ export default class Gamearea extends Component {
       }})
       .to(temp, 0.01, {css:{
         opacity: 1,
-        onComplete: () => {
-          ws.send(
-            JSON.stringify({
-              action: "opplayedanim",
-              card: { color: card[0], num: card[1] },
-              user: this.state.user,
-            })
-          );
-        },
+      },onComplete: () => {
+        ws.send(
+          JSON.stringify({
+            action: "opplayedanim",
+            card: { color: card[0], num: card[1] },
+            user: this.state.user,
+          })
+        );
       }});
     if (card[0] === "black") {
       this.putblackcard(card, e);
@@ -453,13 +452,13 @@ export default class Gamearea extends Component {
         .to(temp, 0.25, {css:{ opacity: 1, ease: "Power2.easeIn" }})
         .to(temp, 0.25, {css:{
           rotateY: 90,
-          onComplete: () => {
-            temp.src = require("./cards/" +
-              data.color +
-              "-" +
-              data.num +
-              ".png");
-          },
+        },
+        onComplete: () => {
+          temp.src = require("./cards/" +
+            data.color +
+            "-" +
+            data.num +
+            ".png");
         }})
         .to(temp, 0.25, {css:{ rotateY: 0 }})
         .to(temp, 0.5, {css:{
@@ -468,10 +467,10 @@ export default class Gamearea extends Component {
             temp.getBoundingClientRect().x +
             50,
           y: dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-          onComplete: () => {
-            this.state.playercards.push(addcards);
-            temp.parentNode.removeChild(temp);
-          },
+          
+        },onComplete: () => {
+          this.state.playercards.push(addcards);
+          temp.parentNode.removeChild(temp);
         }})
         .play();
       this.setState({ playercards: this.state.playercards });
@@ -508,16 +507,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "wplayed",
-                    tablecard: { num: "W", color: "red" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "wplayed",
+                  tablecard: { num: "W", color: "red" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -526,16 +525,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "wplayed",
-                    tablecard: { num: "W", color: "yellow" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "wplayed",
+                  tablecard: { num: "W", color: "yellow" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -544,16 +543,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "wplayed",
-                    tablecard: { num: "W", color: "green" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "wplayed",
+                  tablecard: { num: "W", color: "green" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -562,16 +561,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "wplayed",
-                    tablecard: { num: "W", color: "blue" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "wplayed",
+                  tablecard: { num: "W", color: "blue" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -593,16 +592,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "4played",
-                    tablecard: { num: "+4", color: "red" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "4played",
+                  tablecard: { num: "+4", color: "red" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -611,16 +610,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "4played",
-                    tablecard: { num: "+4", color: "yellow" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "4played",
+                  tablecard: { num: "+4", color: "yellow" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -629,16 +628,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "4played",
-                    tablecard: { num: "+4", color: "green" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "4played",
+                  tablecard: { num: "+4", color: "green" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -647,16 +646,16 @@ export default class Gamearea extends Component {
             .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
-              onComplete: () => {
-                ws.send(
-                  JSON.stringify({
-                    action: "4played",
-                    tablecard: { num: "+4", color: "blue" },
-                    played: this.state.user,
-                  })
-                );
-                temp.parentNode.removeChild(temp);
-              },
+            },
+            onComplete: () => {
+              ws.send(
+                JSON.stringify({
+                  action: "4played",
+                  tablecard: { num: "+4", color: "blue" },
+                  played: this.state.user,
+                })
+              );
+              temp.parentNode.removeChild(temp);
             }})
             .play();
           break;
@@ -684,42 +683,42 @@ export default class Gamearea extends Component {
       .to(temp, 0.5, {css:{
         x: box.x - temp.getBoundingClientRect().x + 50,
         y: box.y - temp.getBoundingClientRect().y,
-        onComplete: () => {
-          if (card[1] === "R") {
-            ws.send(
-              JSON.stringify({
-                action: "rplayed",
-                tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
-              })
-            );
-          } else if (card[1] === "S") {
-            ws.send(
-              JSON.stringify({
-                action: "splayed",
-                tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
-              })
-            );
-          } else if (card[1] === "+2") {
-            ws.send(
-              JSON.stringify({
-                action: "2played",
-                tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
-              })
-            );
-          } else {
-            ws.send(
-              JSON.stringify({
-                action: "played",
-                tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
-              })
-            );
-          }
-          temp.parentNode.removeChild(temp);
-        },
+      },
+      onComplete: () => {
+        if (card[1] === "R") {
+          ws.send(
+            JSON.stringify({
+              action: "rplayed",
+              tablecard: { num: card[1], color: card[0] },
+              played: this.state.user,
+            })
+          );
+        } else if (card[1] === "S") {
+          ws.send(
+            JSON.stringify({
+              action: "splayed",
+              tablecard: { num: card[1], color: card[0] },
+              played: this.state.user,
+            })
+          );
+        } else if (card[1] === "+2") {
+          ws.send(
+            JSON.stringify({
+              action: "2played",
+              tablecard: { num: card[1], color: card[0] },
+              played: this.state.user,
+            })
+          );
+        } else {
+          ws.send(
+            JSON.stringify({
+              action: "played",
+              tablecard: { num: card[1], color: card[0] },
+              played: this.state.user,
+            })
+          );
+        }
+        temp.parentNode.removeChild(temp);
       }})
       .play();
   };
