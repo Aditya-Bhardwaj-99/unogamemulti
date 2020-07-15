@@ -791,13 +791,14 @@ export default class Gamearea extends Component {
         ></PacmanLoader>
         {!this.state.loading ? (
           <div>
-            <div className="gridItem">
+            <div className="gridItem" >
               <div
                 className="op1"
                 style={{
                   transform: "rotateZ(180deg)",
-                  height: "auto",
+                  height: "33%",
                   width: "auto",
+                  marginTop:'5%'
                 }}
               >
                 <div
