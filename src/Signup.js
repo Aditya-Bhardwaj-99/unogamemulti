@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Appbar from './Appbar';
 import { TextField } from '@material-ui/core';
 
+const url=`https://uno-react-server.herokuapp.com/`;
+const dev=`http://localhost:3001`;
+
 export default class Signup extends Component {
     constructor() {
         super();
@@ -11,7 +14,7 @@ export default class Signup extends Component {
     handleSubmit=async ()=>{
         var form = document.getElementsByClassName('signForm')[0];
         if(form.elements.password.value===form.elements.cpassword.value){
-            fetch(`http://localhost:3001/signup`, {
+            fetch(url+`/signup`, {
             method: 'POST',
             mode: 'cors',
             headers: {

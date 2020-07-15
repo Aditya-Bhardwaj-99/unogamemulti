@@ -5,6 +5,9 @@ import Signup from './Signup';
 import Game from './Game';
 import './Login.css'
 
+const url=`https://uno-react-server.herokuapp.com/`;
+const dev=`http://localhost:3001`;
+
 export default class Login extends Component {
     constructor() {
         super();
@@ -17,7 +20,7 @@ export default class Login extends Component {
 
     handleSubmit = () => {
         var form = document.getElementsByClassName('logForm')[0];
-        fetch(`http://localhost:3001/login`, {
+        fetch(url+`/login`, {
             method: 'POST',
             mode: 'cors',
             headers: {

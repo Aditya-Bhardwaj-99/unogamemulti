@@ -8,6 +8,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+const url=`https://uno-react-server.herokuapp.com/`;
+const dev=`http://localhost:3001`;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     background: 'rgba(255, 255, 255, 0.4)',
@@ -30,7 +33,7 @@ export default function Appbar(props) {
 
   const handleLogout = ()=>{
     auth = false;
-    fetch(`http://localhost:3001/logout`, {
+    fetch(url+`/logout`, {
             method: 'POST',
             mode: 'cors',
             headers: {
