@@ -218,7 +218,7 @@ export default class Gamearea extends Component {
                 e.target.getBoundingClientRect().y -
                 temp.getBoundingClientRect().y,
             }})
-            .to(temp, 0.25, {css:{ opacity: 1, ease: "Power2.easeIn" }})
+            .to(temp, 0.25, {css:{ opacity: 1 }})
             .to(temp, 0.25, {css:{
               rotateY: 90,
               },onComplete: () => {
@@ -281,7 +281,7 @@ export default class Gamearea extends Component {
             }})
             .to(temp, 0.25, {css:{
               opacity: 1,
-              ease: "Power2.easeIn",
+              
               background: "black",
             }})
             .to(temp, 0.5, {css:{
@@ -326,7 +326,7 @@ export default class Gamearea extends Component {
             y:
               target.getBoundingClientRect().y - temp.getBoundingClientRect().y,rotateZ:rotation
           }})
-          .to(temp, 0.1, {css:{ opacity: 1, ease: "Power2.easeIn" }})
+          .to(temp, 0.1, {css:{ opacity: 1}})
           .to(temp, 0.25, {
             rotateY: 90,
             onComplete: () => {
@@ -449,7 +449,7 @@ export default class Gamearea extends Component {
           y:
             e.target.getBoundingClientRect().y - temp.getBoundingClientRect().y,
         }})
-        .to(temp, 0.25, {css:{ opacity: 1, ease: "Power2.easeIn" }})
+        .to(temp, 0.25, {css:{ opacity: 1 }})
         .to(temp, 0.25, {css:{
           rotateY: 90,
         },
@@ -469,7 +469,7 @@ export default class Gamearea extends Component {
           y: dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
           
         },onComplete: () => {
-          this.state.playercards.push(addcards);
+          this.state.playercards.push(data);
           temp.parentNode.removeChild(temp);
         }})
         .play();
