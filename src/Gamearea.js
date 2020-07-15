@@ -209,7 +209,7 @@ export default class Gamearea extends Component {
             })
           );
           this.timeline
-            .to(temp, 0.01, {
+            .to(temp, 0.01, {css:{
               x:
                 e.target.getBoundingClientRect().x -
                 temp.getBoundingClientRect().x +
@@ -217,9 +217,9 @@ export default class Gamearea extends Component {
               y:
                 e.target.getBoundingClientRect().y -
                 temp.getBoundingClientRect().y,
-            })
-            .to(temp, 0.25, { opacity: 1, ease: "Power2.easeIn" })
-            .to(temp, 0.25, {
+            }})
+            .to(temp, 0.25, {css:{ opacity: 1, ease: "Power2.easeIn" }})
+            .to(temp, 0.25, {css:{
               rotateY: 90,
               onComplete: () => {
                 console.log(res.addcard[0].color + "-" + res.addcard[0].num);
@@ -228,10 +228,10 @@ export default class Gamearea extends Component {
                   "-" +
                   res.addcard[0].num +
                   ".png");
-              },
+              }},
             })
-            .to(temp, 0.25, { rotateY: 0 })
-            .to(temp, 0.5, {
+            .to(temp, 0.25, {css:{ rotateY: 0 }})
+            .to(temp, 0.5, {css:{
               x:
                 dest.getBoundingClientRect().x -
                 temp.getBoundingClientRect().x +
@@ -244,7 +244,7 @@ export default class Gamearea extends Component {
                 )[0].style.pointerEvents = "auto";
                 this.drawCard(res.addcard);
                 temp.parentNode.removeChild(temp);
-              },
+              }},
             })
             .play();
         }
@@ -271,20 +271,20 @@ export default class Gamearea extends Component {
         temp.style.opacity = 0;
         for (let i = 0; i < res.number; i++) {
           this.timeline
-            .to(temp, 0.01, {
+            .to(temp, 0.01, {css:{
               x:
                 e.target.getBoundingClientRect().x -
                 temp.getBoundingClientRect().x,
               y:
                 e.target.getBoundingClientRect().y -
                 temp.getBoundingClientRect().y,
-            })
-            .to(temp, 0.25, {
+            }})
+            .to(temp, 0.25, {css:{
               opacity: 1,
               ease: "Power2.easeIn",
               background: "black",
-            })
-            .to(temp, 0.5, {
+            }})
+            .to(temp, 0.5, {css:{
               x:
                 dest.getBoundingClientRect().x -
                 temp.getBoundingClientRect().x +
@@ -294,7 +294,7 @@ export default class Gamearea extends Component {
                 rotateZ:rotation,
               onComplete: () => {
                 temp.parentNode.removeChild(temp);
-              },
+              }},
             })
             .play();
         }
@@ -319,14 +319,14 @@ export default class Gamearea extends Component {
         temp.className = "tempopplayer";
         temp.style.opacity = 0;
         this.timeline
-          .to(temp, 0.1, {
+          .to(temp, 0.1, {css:{
             x:
               target.getBoundingClientRect().x -
               temp.getBoundingClientRect().x,
             y:
               target.getBoundingClientRect().y - temp.getBoundingClientRect().y,rotateZ:rotation
-          })
-          .to(temp, 0.1, { opacity: 1, ease: "Power2.easeIn" })
+          }})
+          .to(temp, 0.1, {css:{ opacity: 1, ease: "Power2.easeIn" }})
           .to(temp, 0.25, {
             rotateY: 90,
             onComplete: () => {
@@ -337,8 +337,8 @@ export default class Gamearea extends Component {
                 ".png");
             },
           })
-          .to(temp, 0.25, { rotateY: 0})
-          .to(temp, 0.25, {
+          .to(temp, 0.25, {css:{ rotateY: 0}})
+          .to(temp, 0.25, {css:{
             x:
               dest.getBoundingClientRect().x -
               temp.getBoundingClientRect().x,
@@ -346,7 +346,7 @@ export default class Gamearea extends Component {
             rotateZ:0,
             onComplete: () => {
               temp.parentNode.removeChild(temp);
-            },
+            }},
           })
           .play();
       }
@@ -370,14 +370,14 @@ export default class Gamearea extends Component {
     temp.className = "tempplayer";
     temp.style.opacity = 0;
     this.timeline
-      .to(temp, 0.01, {
+      .to(temp, 0.01, {css:{
         x:
           e.target.getBoundingClientRect().x -
           temp.getBoundingClientRect().x +
           50,
         y: e.target.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-      })
-      .to(temp, 0.01, {
+      }})
+      .to(temp, 0.01, {css:{
         opacity: 1,
         onComplete: () => {
           ws.send(
@@ -388,7 +388,7 @@ export default class Gamearea extends Component {
             })
           );
         },
-      });
+      }});
     if (card[0] === "black") {
       this.putblackcard(card, e);
     } else if (
@@ -442,16 +442,16 @@ export default class Gamearea extends Component {
         })
       );
       this.timeline
-        .to(temp, 0.01, {
+        .to(temp, 0.01, {css:{
           x:
             e.target.getBoundingClientRect().x -
             temp.getBoundingClientRect().x +
             50,
           y:
             e.target.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-        })
-        .to(temp, 0.25, { opacity: 1, ease: "Power2.easeIn" })
-        .to(temp, 0.25, {
+        }})
+        .to(temp, 0.25, {css:{ opacity: 1, ease: "Power2.easeIn" }})
+        .to(temp, 0.25, {css:{
           rotateY: 90,
           onComplete: () => {
             temp.src = require("./cards/" +
@@ -460,9 +460,9 @@ export default class Gamearea extends Component {
               data.num +
               ".png");
           },
-        })
-        .to(temp, 0.25, { rotateY: 0 })
-        .to(temp, 0.5, {
+        }})
+        .to(temp, 0.25, {css:{ rotateY: 0 }})
+        .to(temp, 0.5, {css:{
           x:
             dest.getBoundingClientRect().x -
             temp.getBoundingClientRect().x +
@@ -472,7 +472,7 @@ export default class Gamearea extends Component {
             this.state.playercards.push(addcards);
             temp.parentNode.removeChild(temp);
           },
-        })
+        }})
         .play();
       this.setState({ playercards: this.state.playercards });
     }
@@ -505,7 +505,7 @@ export default class Gamearea extends Component {
       switch (userInput.toUpperCase()) {
         case "R":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -518,12 +518,12 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         case "Y":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -536,12 +536,12 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         case "G":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -554,12 +554,12 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         case "B":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -572,7 +572,7 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         default:
@@ -590,7 +590,7 @@ export default class Gamearea extends Component {
       switch (userInput.toUpperCase()) {
         case "R":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -603,12 +603,12 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         case "Y":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -621,12 +621,12 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         case "G":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -639,12 +639,12 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         case "B":
           this.timeline
-            .to(temp, 0.5, {
+            .to(temp, 0.5, {css:{
               x: box.x - temp.getBoundingClientRect().x + 50,
               y: box.y - temp.getBoundingClientRect().y,
               onComplete: () => {
@@ -657,7 +657,7 @@ export default class Gamearea extends Component {
                 );
                 temp.parentNode.removeChild(temp);
               },
-            })
+            }})
             .play();
           break;
         default:
@@ -681,7 +681,7 @@ export default class Gamearea extends Component {
       .getElementsByClassName("tablecard")[0]
       .getBoundingClientRect();
     this.timeline
-      .to(temp, 0.5, {
+      .to(temp, 0.5, {css:{
         x: box.x - temp.getBoundingClientRect().x + 50,
         y: box.y - temp.getBoundingClientRect().y,
         onComplete: () => {
@@ -720,7 +720,7 @@ export default class Gamearea extends Component {
           }
           temp.parentNode.removeChild(temp);
         },
-      })
+      }})
       .play();
   };
 
