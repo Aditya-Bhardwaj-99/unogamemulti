@@ -473,8 +473,8 @@ export default class Gamearea extends Component {
           temp.parentNode.removeChild(temp);
         }})
         .play();
-      this.setState({ playercards: this.state.playercards });
     }
+    this.setState({ playercards: this.state.playercards });
   };
   drawCard = (addcards) => {
     this.state.playercards.push(...addcards);
