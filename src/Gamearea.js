@@ -9,7 +9,10 @@ import Opo from "./Opo";
 import { TimelineLite } from "gsap";
 // import Websocket from 'ws';
 
-const ws = new WebSocket("ws://localhost:3001/websocket");
+const url="wss://uno-react-server.herokuapp.com/websocket";
+const dev='wss://localhost:3001/websocket';
+
+const ws = new WebSocket(url);
 
 const gamearea = {
   display: "grid",

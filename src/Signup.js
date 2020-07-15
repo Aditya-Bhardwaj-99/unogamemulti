@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Appbar from './Appbar';
 import { TextField } from '@material-ui/core';
 
-const url=`https://uno-react-server.herokuapp.com/`;
+const url=`https://uno-react-server.herokuapp.com`;
 const dev=`http://localhost:3001`;
 
 export default class Signup extends Component {

@@ -5,7 +5,7 @@ import Signup from './Signup';
 import Game from './Game';
 import './Login.css'
 
-const url=`https://uno-react-server.herokuapp.com/`;
+const url=`https://uno-react-server.herokuapp.com`;
 const dev=`http://localhost:3001`;
 
 export default class Login extends Component {
