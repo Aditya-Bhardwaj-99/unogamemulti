@@ -6,9 +6,9 @@ import React, { Component } from "react";
 import "./Game.css";
 import { PacmanLoader } from "react-spinners";
 import Opo from "./Opo";
-import { TimelineLite } from "gsap";
+import { TimelineLite, gsap,CSSPlugin } from "gsap";
 // import Websocket from 'ws';
-
+gsap.registerPlugin(CSSPlugin);
 const url="wss://uno-react-server.herokuapp.com/websocket";
 const dev='wss://localhost:3001/websocket';
 
