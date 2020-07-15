@@ -9,7 +9,9 @@ import Gamearea from './Gamearea';
 const style = (theme) => ({
     root: {
       background: 'rgba(255, 255, 255, 0.4)',
-      '-webkit-box-shadow' : '5px 5px 15px rgba(0,0,0,0.5)'
+      '-webkit-box-shadow' : '5px 5px 15px rgba(0,0,0,0.5)',
+      width:'1268.35px',
+      height:'540px'
     },
     menuButton: {
       marginRight: theme.spacing(2),

@@ -6,47 +6,54 @@ import React, { Component } from "react";
 import "./Game.css";
 import { PacmanLoader } from "react-spinners";
 import Opo from "./Opo";
-import { TimelineLite, gsap,CSSPlugin } from "gsap";
+import { TimelineLite, gsap, CSSPlugin } from "gsap";
 // import Websocket from 'ws';
 gsap.registerPlugin(CSSPlugin);
-const url="wss://uno-react-server.herokuapp.com/websocket";
-const dev='wss://localhost:3001/websocket';
+const url = "wss://uno-react-server.herokuapp.com/websocket";
+const dev = "wss://localhost:3001/websocket";
 
 const ws = new WebSocket(url);
 
 const gamearea = {
   display: "grid",
   "grid-template-columns": "auto",
-  height: "auto",
-  width: "auto",
+  height: "100%",
+  width: "100%",
 };
 const mid = {
   display: "grid",
-  "grid-template-columns": "auto 33% auto",
+  width: "99%",
+  marginLeft: "0.5%",
+  "grid-template-columns": "33% 33% 33%",
 };
 const player = {
   position: "relative",
-  width: "50%",
-  height: "auto",
-  "margin-left": "25%",
-  "margin-right": "25%",
+  width: "33%",
+  height: "33%",
+  marginLeft: "34%",
+  justifyContent: "center",
+  alignItems: "center",
+};
+const playery = {
+  position: "relative",
+  width: "33%",
+  height: "33%",
+  marginLeft: "46%",
   justifyContent: "center",
   alignItems: "center",
 };
 const playerx = {
   position: "relative",
-  width: "auto",
-  height: "auto",
-  "margin-right": "25%",
+  width: "33%",
+  height: "33%",
+  marginLeft: "42%",
   justifyContent: "center",
   alignItems: "center",
-  marginLeft: "50%",
 };
 const stack = {
-  width: "50%",
+  width: "auto",
   height: "auto",
-  "margin-left": "25%",
-  "margin-right": "25%",
+  marginLeft: "25%",
 };
 
 export default class Gamearea extends Component {
@@ -199,55 +206,62 @@ export default class Gamearea extends Component {
             })
           );
           this.timeline
-            .to(temp, 0.01, {css:{
-              x:
-                e.target.getBoundingClientRect().x -
-                temp.getBoundingClientRect().x +
-                50,
-              y:
-                e.target.getBoundingClientRect().y -
-                temp.getBoundingClientRect().y,
-            }})
-            .to(temp, 0.25, {css:{ opacity: 1 }})
-            .to(temp, 0.25, {css:{
-              rotateY: 90,
-              },onComplete: () => {
+            .to(temp, 0.01, {
+              css: {
+                x:
+                  e.target.getBoundingClientRect().x -
+                  temp.getBoundingClientRect().x +
+                  50,
+                y:
+                  e.target.getBoundingClientRect().y -
+                  temp.getBoundingClientRect().y,
+              },
+            })
+            .to(temp, 0.25, { css: { opacity: 1 } })
+            .to(temp, 0.25, {
+              css: {
+                rotateY: 90,
+              },
+              onComplete: () => {
                 console.log(res.addcard[0].color + "-" + res.addcard[0].num);
                 temp.src = require("./cards/" +
                   res.addcard[0].color +
                   "-" +
                   res.addcard[0].num +
                   ".png");
-              }
+              },
             })
-            .to(temp, 0.25, {css:{ rotateY: 0 }})
-            .to(temp, 0.5, {css:{
-              x:
-                dest.getBoundingClientRect().x -
-                temp.getBoundingClientRect().x +
-                50,
-              y:
-                dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-              },onComplete: () => {
+            .to(temp, 0.25, { css: { rotateY: 0 } })
+            .to(temp, 0.5, {
+              css: {
+                x:
+                  dest.getBoundingClientRect().x -
+                  temp.getBoundingClientRect().x +
+                  50,
+                y:
+                  dest.getBoundingClientRect().y -
+                  temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
                 document.getElementsByClassName(
                   "player"
                 )[0].style.pointerEvents = "auto";
                 this.drawCard(res.addcard);
                 temp.parentNode.removeChild(temp);
-              }
+              },
             })
             .play();
         }
       } else if (res.action === "drawanimresp") {
-          let rotation;
+        let rotation;
         if (this.state.user === res.user) {
           return;
-        } else if(this.state.op1.name===res.user){
-            rotation=180;
-        } else if(this.state.op2.name===res.user){
-            rotation=90
-        } else if(this.state.op3.name===res.user){
-            rotation=270
+        } else if (this.state.op1.name === res.user) {
+          rotation = 180;
+        } else if (this.state.op2.name === res.user) {
+          rotation = 90;
+        } else if (this.state.op3.name === res.user) {
+          rotation = 270;
         }
         let dest = document.getElementsByClassName(res.user + "cards")[0];
         let temp = document.createElement("img");
@@ -261,44 +275,51 @@ export default class Gamearea extends Component {
         temp.style.opacity = 0;
         for (let i = 0; i < res.number; i++) {
           this.timeline
-            .to(temp, 0.01, {css:{
-              x:
-                e.target.getBoundingClientRect().x -
-                temp.getBoundingClientRect().x,
-              y:
-                e.target.getBoundingClientRect().y -
-                temp.getBoundingClientRect().y,
-            }})
-            .to(temp, 0.25, {css:{
-              opacity: 1,
-              
-              background: "black",
-            }})
-            .to(temp, 0.5, {css:{
-              x:
-                dest.getBoundingClientRect().x -
-                temp.getBoundingClientRect().x +
-                50,
-              y:
-                dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-                rotateZ:rotation,
-              },onComplete: () => {
+            .to(temp, 0.01, {
+              css: {
+                x:
+                  e.target.getBoundingClientRect().x -
+                  temp.getBoundingClientRect().x,
+                y:
+                  e.target.getBoundingClientRect().y -
+                  temp.getBoundingClientRect().y,
+              },
+            })
+            .to(temp, 0.25, {
+              css: {
+                opacity: 1,
+
+                background: "black",
+              },
+            })
+            .to(temp, 0.5, {
+              css: {
+                x:
+                  dest.getBoundingClientRect().x -
+                  temp.getBoundingClientRect().x +
+                  50,
+                y:
+                  dest.getBoundingClientRect().y -
+                  temp.getBoundingClientRect().y,
+                rotateZ: rotation,
+              },
+              onComplete: () => {
                 temp.parentNode.removeChild(temp);
-              }
+              },
             })
             .play();
         }
       } else if (res.action === "opresp") {
-          let rotation;
+        let rotation;
         if (this.state.user === res.user) {
           return;
-        } else if(this.state.op1.name===res.user){
-              rotation=180;
-          } else if(this.state.op2.name===res.user){
-              rotation=90
-          } else if(this.state.op3.name===res.user){
-              rotation=270
-          }
+        } else if (this.state.op1.name === res.user) {
+          rotation = 180;
+        } else if (this.state.op2.name === res.user) {
+          rotation = 90;
+        } else if (this.state.op3.name === res.user) {
+          rotation = 270;
+        }
         let temp = document.createElement("img");
         let dest = document.getElementsByClassName("tablecard")[0];
         let target = document.getElementsByClassName(res.user + "cards")[0];
@@ -309,14 +330,18 @@ export default class Gamearea extends Component {
         temp.className = "tempopplayer";
         temp.style.opacity = 0;
         this.timeline
-          .to(temp, 0.1, {css:{
-            x:
-              target.getBoundingClientRect().x -
-              temp.getBoundingClientRect().x,
-            y:
-              target.getBoundingClientRect().y - temp.getBoundingClientRect().y,rotateZ:rotation
-          }})
-          .to(temp, 0.1, {css:{ opacity: 1}})
+          .to(temp, 0.1, {
+            css: {
+              x:
+                target.getBoundingClientRect().x -
+                temp.getBoundingClientRect().x,
+              y:
+                target.getBoundingClientRect().y -
+                temp.getBoundingClientRect().y,
+              rotateZ: rotation,
+            },
+          })
+          .to(temp, 0.1, { css: { opacity: 1 } })
           .to(temp, 0.25, {
             rotateY: 90,
             onComplete: () => {
@@ -327,16 +352,18 @@ export default class Gamearea extends Component {
                 ".png");
             },
           })
-          .to(temp, 0.25, {css:{ rotateY: 0}})
-          .to(temp, 0.25, {css:{
-            x:
-              dest.getBoundingClientRect().x -
-              temp.getBoundingClientRect().x,
-            y: dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-            rotateZ:0,
-            },onComplete: () => {
+          .to(temp, 0.25, { css: { rotateY: 0 } })
+          .to(temp, 0.25, {
+            css: {
+              x:
+                dest.getBoundingClientRect().x - temp.getBoundingClientRect().x,
+              y:
+                dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
+              rotateZ: 0,
+            },
+            onComplete: () => {
               temp.parentNode.removeChild(temp);
-            }
+            },
           })
           .play();
       }
@@ -360,24 +387,30 @@ export default class Gamearea extends Component {
     temp.className = "tempplayer";
     temp.style.opacity = 0;
     this.timeline
-      .to(temp, 0.01, {css:{
-        x:
-          e.target.getBoundingClientRect().x -
-          temp.getBoundingClientRect().x +
-          50,
-        y: e.target.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-      }})
-      .to(temp, 0.01, {css:{
-        opacity: 1,
-      },onComplete: () => {
-        ws.send(
-          JSON.stringify({
-            action: "opplayedanim",
-            card: { color: card[0], num: card[1] },
-            user: this.state.user,
-          })
-        );
-      }});
+      .to(temp, 0.01, {
+        css: {
+          x:
+            e.target.getBoundingClientRect().x -
+            temp.getBoundingClientRect().x +
+            50,
+          y:
+            e.target.getBoundingClientRect().y - temp.getBoundingClientRect().y,
+        },
+      })
+      .to(temp, 0.01, {
+        css: {
+          opacity: 1,
+        },
+        onComplete: () => {
+          ws.send(
+            JSON.stringify({
+              action: "opplayedanim",
+              card: { color: card[0], num: card[1] },
+              user: this.state.user,
+            })
+          );
+        },
+      });
     if (card[0] === "black") {
       this.putblackcard(card, e);
     } else if (
@@ -414,15 +447,15 @@ export default class Gamearea extends Component {
   drawTwoCards = (addcards) => {
     for (let data of addcards) {
       let e = { target: document.getElementsByClassName("tablecard")[0] };
-    let dest = document.getElementsByClassName("player")[0].lastChild;
-    let temp = document.createElement("img");
-    temp.src = require("./cards/back-.png");
-    temp.style.height = e.target.style.height;
-    temp.style.width = e.target.style.width;
-    document.getElementsByClassName("stack")[0].appendChild(temp);
-    temp.style.position = "absolute";
-    temp.className = "tempplayer";
-    temp.style.opacity = 0;
+      let dest = document.getElementsByClassName("player")[0].lastChild;
+      let temp = document.createElement("img");
+      temp.src = require("./cards/back-.png");
+      temp.style.height = e.target.style.height;
+      temp.style.width = e.target.style.width;
+      document.getElementsByClassName("stack")[0].appendChild(temp);
+      temp.style.position = "absolute";
+      temp.className = "tempplayer";
+      temp.style.opacity = 0;
       ws.send(
         JSON.stringify({
           action: "drawanim",
@@ -431,38 +464,45 @@ export default class Gamearea extends Component {
         })
       );
       this.timeline
-        .to(temp, 0.01, {css:{
-          x:
-            e.target.getBoundingClientRect().x -
-            temp.getBoundingClientRect().x +
-            50,
-          y:
-            e.target.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-        }})
-        .to(temp, 0.25, {css:{ opacity: 1 }})
-        .to(temp, 0.25, {css:{
-          rotateY: 90,
-        },
-        onComplete: () => {
-          temp.src = require("./cards/" +
-            data.color +
-            "-" +
-            data.num +
-            ".png");
-        }})
-        .to(temp, 0.25, {css:{ rotateY: 0 }})
-        .to(temp, 0.5, {css:{
-          x:
-            dest.getBoundingClientRect().x -
-            temp.getBoundingClientRect().x +
-            50,
-          y: dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
-          
-        },onComplete: () => {
-          this.state.playercards.push(data);
-          temp.parentNode.removeChild(temp);
-          this.setState({ playercards: this.state.playercards });
-        }})
+        .to(temp, 0.01, {
+          css: {
+            x:
+              e.target.getBoundingClientRect().x -
+              temp.getBoundingClientRect().x +
+              50,
+            y:
+              e.target.getBoundingClientRect().y -
+              temp.getBoundingClientRect().y,
+          },
+        })
+        .to(temp, 0.25, { css: { opacity: 1 } })
+        .to(temp, 0.25, {
+          css: {
+            rotateY: 90,
+          },
+          onComplete: () => {
+            temp.src = require("./cards/" +
+              data.color +
+              "-" +
+              data.num +
+              ".png");
+          },
+        })
+        .to(temp, 0.25, { css: { rotateY: 0 } })
+        .to(temp, 0.5, {
+          css: {
+            x:
+              dest.getBoundingClientRect().x -
+              temp.getBoundingClientRect().x +
+              50,
+            y: dest.getBoundingClientRect().y - temp.getBoundingClientRect().y,
+          },
+          onComplete: () => {
+            this.state.playercards.push(data);
+            temp.parentNode.removeChild(temp);
+            this.setState({ playercards: this.state.playercards });
+          },
+        })
         .play();
     }
   };
@@ -494,74 +534,82 @@ export default class Gamearea extends Component {
       switch (userInput.toUpperCase()) {
         case "R":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "wplayed",
-                  tablecard: { num: "0", color: "red" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "wplayed",
+                    tablecard: { num: "0", color: "red" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         case "Y":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "wplayed",
-                  tablecard: { num: "0", color: "yellow" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "wplayed",
+                    tablecard: { num: "0", color: "yellow" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         case "G":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "wplayed",
-                  tablecard: { num: "0", color: "green" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "wplayed",
+                    tablecard: { num: "0", color: "green" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         case "B":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "wplayed",
-                  tablecard: { num: "0", color: "blue" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "wplayed",
+                    tablecard: { num: "0", color: "blue" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         default:
@@ -579,74 +627,82 @@ export default class Gamearea extends Component {
       switch (userInput.toUpperCase()) {
         case "R":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "4played",
-                  tablecard: { num: "0", color: "red" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "4played",
+                    tablecard: { num: "0", color: "red" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         case "Y":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "4played",
-                  tablecard: { num: "0", color: "yellow" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "4played",
+                    tablecard: { num: "0", color: "yellow" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         case "G":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "4played",
-                  tablecard: { num: "0", color: "green" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "4played",
+                    tablecard: { num: "0", color: "green" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         case "B":
           this.timeline
-            .to(temp, 0.5, {css:{
-              x: box.x - temp.getBoundingClientRect().x + 50,
-              y: box.y - temp.getBoundingClientRect().y,
-            },
-            onComplete: () => {
-              ws.send(
-                JSON.stringify({
-                  action: "4played",
-                  tablecard: { num: "0", color: "blue" },
-                  played: this.state.user,
-                })
-              );
-              temp.parentNode.removeChild(temp);
-            }})
+            .to(temp, 0.5, {
+              css: {
+                x: box.x - temp.getBoundingClientRect().x + 50,
+                y: box.y - temp.getBoundingClientRect().y,
+              },
+              onComplete: () => {
+                ws.send(
+                  JSON.stringify({
+                    action: "4played",
+                    tablecard: { num: "0", color: "blue" },
+                    played: this.state.user,
+                  })
+                );
+                temp.parentNode.removeChild(temp);
+              },
+            })
             .play();
           break;
         default:
@@ -670,46 +726,48 @@ export default class Gamearea extends Component {
       .getElementsByClassName("tablecard")[0]
       .getBoundingClientRect();
     this.timeline
-      .to(temp, 0.5, {css:{
-        x: box.x - temp.getBoundingClientRect().x + 50,
-        y: box.y - temp.getBoundingClientRect().y,
-      },
-      onComplete: () => {
-        if (card[1] === "R") {
-          ws.send(
-            JSON.stringify({
-              action: "rplayed",
-              tablecard: { num: card[1], color: card[0] },
-              played: this.state.user,
-            })
-          );
-        } else if (card[1] === "S") {
-          ws.send(
-            JSON.stringify({
-              action: "splayed",
-              tablecard: { num: card[1], color: card[0] },
-              played: this.state.user,
-            })
-          );
-        } else if (card[1] === "+2") {
-          ws.send(
-            JSON.stringify({
-              action: "2played",
-              tablecard: { num: card[1], color: card[0] },
-              played: this.state.user,
-            })
-          );
-        } else {
-          ws.send(
-            JSON.stringify({
-              action: "played",
-              tablecard: { num: card[1], color: card[0] },
-              played: this.state.user,
-            })
-          );
-        }
-        temp.parentNode.removeChild(temp);
-      }})
+      .to(temp, 0.5, {
+        css: {
+          x: box.x - temp.getBoundingClientRect().x + 50,
+          y: box.y - temp.getBoundingClientRect().y,
+        },
+        onComplete: () => {
+          if (card[1] === "R") {
+            ws.send(
+              JSON.stringify({
+                action: "rplayed",
+                tablecard: { num: card[1], color: card[0] },
+                played: this.state.user,
+              })
+            );
+          } else if (card[1] === "S") {
+            ws.send(
+              JSON.stringify({
+                action: "splayed",
+                tablecard: { num: card[1], color: card[0] },
+                played: this.state.user,
+              })
+            );
+          } else if (card[1] === "+2") {
+            ws.send(
+              JSON.stringify({
+                action: "2played",
+                tablecard: { num: card[1], color: card[0] },
+                played: this.state.user,
+              })
+            );
+          } else {
+            ws.send(
+              JSON.stringify({
+                action: "played",
+                tablecard: { num: card[1], color: card[0] },
+                played: this.state.user,
+              })
+            );
+          }
+          temp.parentNode.removeChild(temp);
+        },
+      })
       .play();
   };
 
@@ -731,131 +789,155 @@ export default class Gamearea extends Component {
           css="margin-top:20%;margin-left:45%;"
           loading={this.state.loading}
         ></PacmanLoader>
-        <div className="gridItem">
-          <div
-            className="op1"
-            style={{
-              transform: "rotateZ(180deg)",
-              height: "auto",
-              width: "auto",
-            }}
-          >
-            <div
-              className="op1p"
-              style={{ width: "25%", marginLeft: "40%", textAlign: "center" }}
-            >
-              {this.state.op1.name ? this.state.op1.name : ""}
+        {!this.state.loading ? (
+          <div>
+            <div className="gridItem">
+              <div
+                className="op1"
+                style={{
+                  transform: "rotateZ(180deg)",
+                  height: "auto",
+                  width: "auto",
+                }}
+              >
+                <div
+                  className="op1p"
+                  style={{
+                    width: "33%",
+                    marginLeft: "33%",
+                    textAlign: "center",
+                  }}
+                >
+                  {this.state.op1.name ? this.state.op1.name : ""}
+                </div>
+                <div className="whereop1resides" style={playery}>
+                  {this.state.op1.num ? (
+                    <Opo
+                      cardnum={this.state.op1.num}
+                      name={this.state.op1.name}
+                    ></Opo>
+                  ) : null}
+                </div>
+              </div>
             </div>
-            <div className="whereop1resides" style={player}>
-              {this.state.op1.num ? (
-                <Opo
-                  cardnum={this.state.op1.num}
-                  name={this.state.op1.name}
-                ></Opo>
-              ) : null}
+            <div className="gridItem" id="mid" style={mid}>
+              <div
+                className="op2"
+                style={{
+                  transform: "rotateZ(90deg)",
+                  height: "auto",
+                  width: "auto",
+                }}
+              >
+                <div
+                  className="op2p"
+                  style={{
+                    width: "33%",
+                    marginLeft: "33%",
+                    textAlign: "center",
+                  }}
+                >
+                  {this.state.op2.name ? this.state.op2.name : ""}
+                </div>
+                <div className="whereop2resides" style={playerx}>
+                  {this.state.op2.num ? (
+                    <Opo
+                      cardnum={this.state.op2.num}
+                      name={this.state.op2.name}
+                    ></Opo>
+                  ) : null}
+                </div>
+              </div>
+              <div className="stack" style={stack}>
+                <div style={{ marginLeft: "20%" }}>
+                  <img
+                    src={require("./cards/" +
+                      this.state.tablecard.color +
+                      "-" +
+                      this.state.tablecard.num +
+                      ".png")}
+                    className="tablecard"
+                    style={{ height: "75px", width: "50px" }}
+                    id={
+                      this.state.tablecard.color +
+                      "-" +
+                      this.state.tablecard.num
+                    }
+                    alt={
+                      "cards/" +
+                      this.state.tablecard.color +
+                      "-" +
+                      this.state.tablecard.num +
+                      ".png"
+                    }
+                  ></img>
+                  <img
+                    src={require("./cards/back-.png")}
+                    alt={"deck"}
+                    style={{
+                      height: "75px",
+                      width: "50px",
+                      background: "black",
+                    }}
+                    onClick={this.drawCarde}
+                  ></img>
+                </div>
+              </div>
+              <div
+                className="op3"
+                style={{
+                  transform: "rotateZ(270deg)",
+                  height: "auto",
+                  width: "auto",
+                }}
+              >
+                <div
+                  className="op3p"
+                  style={{
+                    width: "33%",
+                    marginLeft: "33%",
+                    textAlign: "center",
+                  }}
+                >
+                  {this.state.op3.name ? this.state.op3.name : ""}
+                </div>
+                <div className="whereop3resides" style={playerx}>
+                  {this.state.op3.num ? (
+                    <Opo
+                      cardnum={this.state.op3.num}
+                      name={this.state.op3.name}
+                    ></Opo>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="gridItem" id="playerplace">
+              <div
+                className="playerp"
+                style={{ width: "33%", marginLeft: "33%", textAlign: "center" }}
+              >
+                {this.state.user}
+              </div>
+              <div className="player" style={player}>
+                {this.state.playercards.map((data) => {
+                  return (
+                    <img
+                      src={require("./cards/" +
+                        data.color +
+                        "-" +
+                        data.num +
+                        ".png")}
+                      style={{ height: "75px", width: "50px" }}
+                      id={data.color + "-" + data.num}
+                      alt={"cards/" + data.color + "-" + data.num + ".png"}
+                      onClick={this.handlePlay}
+                    ></img>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="gridItem" id="mid" style={mid}>
-          <div
-            className="op2"
-            style={{
-              transform: "rotateZ(90deg)",
-              height: "auto",
-              width: "auto",
-            }}
-          >
-            <div
-              className="op2p"
-              style={{ width: "25%", marginLeft: "40%", textAlign: "center" }}
-            >
-              {this.state.op2.name ? this.state.op2.name : ""}
-            </div>
-            <div className="whereop2resides" style={playerx}>
-              {this.state.op2.num ? (
-                <Opo
-                  cardnum={this.state.op2.num}
-                  name={this.state.op2.name}
-                ></Opo>
-              ) : null}
-            </div>
-          </div>
-          <div className="stack" style={stack}>
-            <div>
-              <img
-                src={require("./cards/" +
-                  this.state.tablecard.color +
-                  "-" +
-                  this.state.tablecard.num +
-                  ".png")}
-                className="tablecard"
-                style={{ height: "75px", width: "50px" }}
-                id={this.state.tablecard.color + "-" + this.state.tablecard.num}
-                alt={
-                  "cards/" +
-                  this.state.tablecard.color +
-                  "-" +
-                  this.state.tablecard.num +
-                  ".png"
-                }
-              ></img>
-              <img
-                src={require("./cards/back-.png")}
-                alt={"deck"}
-                style={{ height: "75px", width: "50px", background: "black" }}
-                onClick={this.drawCarde}
-              ></img>
-            </div>
-          </div>
-          <div
-            className="op3"
-            style={{
-              transform: "rotateZ(270deg)",
-              height: "auto",
-              width: "auto",
-            }}
-          >
-            <div
-              className="op3p"
-              style={{ width: "25%", marginLeft: "40%", textAlign: "center" }}
-            >
-              {this.state.op3.name ? this.state.op3.name : ""}
-            </div>
-            <div className="whereop3resides" style={playerx}>
-              {this.state.op3.num ? (
-                <Opo
-                  cardnum={this.state.op3.num}
-                  name={this.state.op3.name}
-                ></Opo>
-              ) : null}
-            </div>
-          </div>
-        </div>
-        <div className="gridItem" id="playerplace">
-          <div
-            className="playerp"
-            style={{ width: "25%", marginLeft: "40%", textAlign: "center" }}
-          >
-            {this.state.user}
-          </div>
-          <div className="player" style={player}>
-            {this.state.playercards.map((data) => {
-              return (
-                <img
-                  src={require("./cards/" +
-                    data.color +
-                    "-" +
-                    data.num +
-                    ".png")}
-                  style={{ height: "75px", width: "50px" }}
-                  id={data.color + "-" + data.num}
-                  alt={"cards/" + data.color + "-" + data.num + ".png"}
-                  onClick={this.handlePlay}
-                ></img>
-              );
-            })}
-          </div>
-        </div>
+        ) : null}
       </div>
     );
   }
