@@ -33,7 +33,7 @@ export default function Appbar(props) {
 
   const handleLogout = ()=>{
     auth = false;
-    fetch(url+`/logout`, {
+    fetch(dev+`/logout`, {
             method: 'POST',
             mode: 'cors',
             headers: {

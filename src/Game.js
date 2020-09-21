@@ -29,7 +29,7 @@ class Game extends Component {
             <div>
                 <Appbar auth='true' logout={this.props.logout} user={this.props.user}/>
                 <Card className='gameSpace' classes={{root:classes.root}} >
-                    <Gamearea user={this.props.user}></Gamearea>
+                    <Gamearea user={this.props.user} room={this.props.room}></Gamearea>
                 </Card>
             </div>
         )

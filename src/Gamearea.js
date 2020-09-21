@@ -1,7 +1,4 @@
 /* eslint-disable react/no-direct-mutation-state */
-/*
-    logout?
-*/
 import React, { Component } from "react";
 import "./Game.css";
 import { PacmanLoader } from "react-spinners";
@@ -10,9 +7,9 @@ import { TimelineLite, gsap, CSSPlugin } from "gsap";
 // import Websocket from 'ws';
 gsap.registerPlugin(CSSPlugin);
 const url = "wss://uno-react-server.herokuapp.com/websocket";
-const dev = "wss://localhost:3001/websocket";
+const dev = "ws://localhost:3001/websocket";
 
-const ws = new WebSocket(url);
+const ws = new WebSocket(dev);
 
 const gamearea = {
   display: "grid",
@@ -74,7 +71,7 @@ export default class Gamearea extends Component {
   }
 
   componentDidMount() {
-    this.setState({ user: this.props.user });
+    this.setState({ user: this.props.user, room:this.props.room });
 
     ws.onopen = () => {
       console.log("open");
@@ -82,6 +79,7 @@ export default class Gamearea extends Component {
     ws.onmessage = (data) => {
       console.log(data.data);
       var res = JSON.parse(data.data);
+      if(this.props.room!==res.room){return;}
       if (res.action === "startreturn") {
         console.log("startreturn");
         this.state.playercards = res.cards;
@@ -174,7 +172,7 @@ export default class Gamearea extends Component {
       } else if (res.action === "win") {
         this.win(res.user);
       } else if (res.action === "retry") {
-        ws.send(JSON.stringify({ action: "start", user: this.state.user }));
+        ws.send(JSON.stringify({ action: "start", user: this.state.user, room:this.state.room }));
       } else if (res.action === "drawrep") {
         var e = { target: document.getElementsByClassName("tablecard")[0] };
         var dest = document.getElementsByClassName("player")[0].lastChild;
@@ -203,6 +201,7 @@ export default class Gamearea extends Component {
               action: "drawanim",
               number: res.addcard.length,
               user: this.state.user,
+              room:this.state.room 
             })
           );
           this.timeline
@@ -406,7 +405,8 @@ export default class Gamearea extends Component {
             JSON.stringify({
               action: "opplayedanim",
               card: { color: card[0], num: card[1] },
-              user: this.state.user,
+              user: this.state.user, 
+              room:this.state.room 
             })
           );
         },
@@ -432,7 +432,7 @@ export default class Gamearea extends Component {
         addcards.length !== 0
       ) {
         this.drawTwoCards(addcards);
-        ws.send(JSON.stringify({ action: "d2", user: this.state.user }));
+        ws.send(JSON.stringify({ action: "d2", user: this.state.user, room:this.state.room }));
       } else if (
         (this.state.tablecard.num === "+2" ||
           this.state.tablecard.num === "+4") &&
@@ -460,7 +460,7 @@ export default class Gamearea extends Component {
         JSON.stringify({
           action: "drawanim",
           number: addcards.length,
-          user: this.state.user,
+          user: this.state.user, room:this.state.room 
         })
       );
       this.timeline
@@ -544,7 +544,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "wplayed",
                     tablecard: { num: "0", color: "red" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -564,7 +564,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "wplayed",
                     tablecard: { num: "0", color: "yellow" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -584,7 +584,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "wplayed",
                     tablecard: { num: "0", color: "green" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -604,7 +604,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "wplayed",
                     tablecard: { num: "0", color: "blue" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -637,7 +637,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "4played",
                     tablecard: { num: "0", color: "red" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -657,7 +657,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "4played",
                     tablecard: { num: "0", color: "yellow" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -677,7 +677,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "4played",
                     tablecard: { num: "0", color: "green" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -697,7 +697,7 @@ export default class Gamearea extends Component {
                   JSON.stringify({
                     action: "4played",
                     tablecard: { num: "0", color: "blue" },
-                    played: this.state.user,
+                    played: this.state.user, room:this.state.room 
                   })
                 );
                 temp.parentNode.removeChild(temp);
@@ -737,7 +737,7 @@ export default class Gamearea extends Component {
               JSON.stringify({
                 action: "rplayed",
                 tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
+                played: this.state.user, room:this.state.room 
               })
             );
           } else if (card[1] === "S") {
@@ -745,7 +745,7 @@ export default class Gamearea extends Component {
               JSON.stringify({
                 action: "splayed",
                 tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
+                played: this.state.user, room:this.state.room 
               })
             );
           } else if (card[1] === "+2") {
@@ -753,7 +753,7 @@ export default class Gamearea extends Component {
               JSON.stringify({
                 action: "2played",
                 tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
+                played: this.state.user, room:this.state.room 
               })
             );
           } else {
@@ -761,7 +761,7 @@ export default class Gamearea extends Component {
               JSON.stringify({
                 action: "played",
                 tablecard: { num: card[1], color: card[0] },
-                played: this.state.user,
+                played: this.state.user, room:this.state.room 
               })
             );
           }
@@ -772,12 +772,12 @@ export default class Gamearea extends Component {
   };
 
   ready = (e) => {
-    ws.send(JSON.stringify({ action: "start", user: this.state.user }));
+    ws.send(JSON.stringify({ action: "start", user: this.state.user, room:this.state.room  }));
     e.target.style.display = "none";
   };
 
   drawCarde = () => {
-    ws.send(JSON.stringify({ action: "draw", played: this.state.user }));
+    ws.send(JSON.stringify({ action: "draw", played: this.state.user, room:this.state.room  }));
   };
 
   render() {

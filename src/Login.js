@@ -20,7 +20,7 @@ export default class Login extends Component {
 
     handleSubmit = () => {
         var form = document.getElementsByClassName('logForm')[0];
-        fetch(url+`/login`, {
+        fetch(dev+`/login`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -31,8 +31,8 @@ export default class Login extends Component {
                 pass:form.elements.password.value
             })
           }).then(res=>res.json()).then(res=>{
-              this.setState({user:form.elements.username.value,gamex:1});
               if(res.auth===true){
+                this.setState({user:form.elements.username.value,gamex:1,room:res.room});
                 document.getElementsByClassName('login')[0].style.display='none';
                 document.getElementsByClassName('signup')[0].style.display='none';
               }
@@ -98,7 +98,7 @@ export default class Login extends Component {
                     </div>
                 </div>
                 <div className='signup' ><Signup handle={this.handleSubmitdone}/></div>
-                {this.state.gamex?<Game logout={this.handleLogout} user={this.state.user}/>:null}
+                {this.state.gamex?<Game logout={this.handleLogout} user={this.state.user} room={this.state.room}/>:null}
             </div >
         )
     }
