@@ -9,7 +9,7 @@ gsap.registerPlugin(CSSPlugin);
 const url = "wss://uno-react-server.herokuapp.com/websocket";
 const dev = "ws://localhost:3001/websocket";
 
-const ws = new WebSocket(dev);
+const ws = new WebSocket(url);
 
 const gamearea = {
   display: "grid",

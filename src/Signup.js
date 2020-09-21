@@ -14,7 +14,7 @@ export default class Signup extends Component {
     handleSubmit=async ()=>{
         var form = document.getElementsByClassName('signForm')[0];
         if(form.elements.password.value===form.elements.cpassword.value){
-            fetch(dev+`/signup`, {
+            fetch(url+`/signup`, {
             method: 'POST',
             mode: 'cors',
             headers: {

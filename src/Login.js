@@ -20,7 +20,7 @@ export default class Login extends Component {
 
     handleSubmit = () => {
         var form = document.getElementsByClassName('logForm')[0];
-        fetch(dev+`/login`, {
+        fetch(url+`/login`, {
             method: 'POST',
             mode: 'cors',
             headers: {
